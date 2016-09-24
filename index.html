@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/admin.css">
+<script type="text/javascript" src="js/angular.min.js"></script>
+<script type="text/javascript" src="js/ui-bootstrap-tpls-0.13.2.js"></script>
+<script type="text/javascript" src="js/services.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+<title>SpringBoard Learning hub</title>
+</head>
+<body ng-controller="AppCtrl">
+ <header class="header-bar">
+  <span>
+   <h2 style="display: inline-block">Springboard</h2>
+  </span>
+  <span>
+   <h4 style="display: inline-block">LearningHub</h4>
+  </span>
+ </header>
+ <main class="main-content">
+  <!--Search bar-->
+  <div class="row">
+   <div style="width: 67%">
+    <div class="input-group">
+     <input type="text" class="search form-control" placeholder="Search (by tag)" ng-model="search.tags">
+     <span class="input-group-addon">
+      <i ng-show="suggesting" class="glyphicon glyphicon-refresh"></i>
+      <i ng-show="!suggesting" class="glyphicon glyphicon-search search-button" ng-click = search()></i>
+     </span>
+    </div>
+   </div>
+  </div>
+  <!--End search bar-->
+   <!--Showing data from api-->
+    <div class="row mtm" ng-if="filteredPaths.length == 0" ng-cloak>
+     <div class="alert alert-danger" role="alert">
+      No result found for search criteria
+     </div>
+    </div>
+    <div ng-if="paths && filteredPaths.length > 0" ng-cloak class="alert-info alert row mtm">Result : {{filteredPaths.length}} results found</div>
+    <div class="row mtm details" ng-repeat="path in filteredPaths = (paths | filter:search)">
+     <div class="row">
+      <div class="col-xs-2 img">
+       <img class="path-image" ng-src="{{path.image}}" />
+      </div>
+      <div class="col-xs-8 website-info">
+       <h2 class="title mbm">{{path.name}}</h2>
+       <span class="tag">
+        <i class="glyphicon glyphicon-tag"></i>
+        {{path.tags}}
+       </span>
+      </div>
+      <div class="col-xs-2">
+       <span class="learner">
+         <i class="glyphicon glyphicon-user"></i> {{path.learner}} Learners
+        </span><br/>
+        <span style="display: block;" class="mtm hours">
+         <i class="glyphicon glyphicon-time"></i> {{path.hours}} Hours
+        </span>
+      </div>
+     </div>
+     <h4 style="margin-top: 10px; margin-bottom: 10px;">Description</h3>
+     <div class="row description">
+      {{path.description}}
+     </div>
+     <div style="margin: 10px 0px;" class="row">
+      <span class="votes">
+       <i tooltip="UpVote" class="glyphicon glyphicon-thumbs-up like-icon" ng-click="vote('up', path)"></i>
+       <span class="mlm mrm">{{path.votes}}</span>
+       <i tooltip="DownVote" class="glyphicon glyphicon-thumbs-down like-icon" ng-click="vote('down', path)"></i>
+      </span>
+      <span class="curriculum">
+       <a href="{{path.sign_up}}" class="btn btn-primary btn-sm" target="_blank">View Curriculum</a>
+      </span>
+     </div>
+    </div>
+  
+ </main>
+
+</body>
+</html>

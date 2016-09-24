@@ -1,0 +1,6 @@
+I have used AngularJs to build this application
+Main folder contains index file and seperate folders for css, js, fonts and screenhsots.
+In js there are 2 files one is services.js which is responsible for making all http calls (getting data) other is app.js which has app controller to call services. It also contains functionality to vote any path using local storage.
+I have implemented search feature using angular filters. List will be filtered as user will type anything, this way user can search based on tag.
+User can vote any path and data is stored and fetched from localstorage.
+I setup a github repository for my source code "https://github.com/nishantagrawal25/onePush/"
